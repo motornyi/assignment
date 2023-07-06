@@ -74,3 +74,9 @@ export const THead = styled.thead`
   top: 0;
   background-color: #fff;
 `
+
+export const ClearFilters = styled.span`
+  cursor: pointer;
+  color: rgb(211, 47, 47);
+  font-weight: 300;
+`

@@ -24,21 +24,25 @@ const Home = observer(() => {
           <S.FilterRow key={key}>
             <S.FilterTitle>{name}</S.FilterTitle>
             {values.map((value) => (
-              <S.FilterItemRow>
+              <S.FilterItemRow key={value}>
                 <input
                   type="checkbox"
                   id={value}
                   name={value}
+                  checked={store.filters[key]?.includes(value)}
                   onChange={(e) => {
                     const checked = e.target.checked
                     onFilterChange(key, value, checked)
                   }}
                 />
-                <S.Label for={value}>{value}</S.Label>
+                <S.Label htmlFor={value}>{value}</S.Label>
               </S.FilterItemRow>
             ))}
           </S.FilterRow>
         ))}
+        <S.FilterRow>
+          <S.ClearFilters onClick={() => store.filters = {}}>X Clear filters</S.ClearFilters>
+        </S.FilterRow>
       </S.Sidebar>
 
       <S.Content>
@@ -47,16 +51,16 @@ const Home = observer(() => {
             <S.THead>
               <tr>
                 {COLUMNS.map(({ name }) => (
-                  <th>{name}</th>
+                  <th key={name}>{name}</th>
                 ))}
               </tr>
             </S.THead>
 
             <tbody>
-              {store.data.map((row) => (
-                <tr>
+              {store.data.map((row, i) => (
+                <tr key={i}>
                   {COLUMNS.map(({ key }) => (
-                    <td>{row[key]}</td>
+                    <td key={key}>{row[key]}</td>
                   ))}
                 </tr>
               ))}

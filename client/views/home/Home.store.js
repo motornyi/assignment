@@ -17,9 +17,11 @@ const useHomeStore = () => {
     }, {})
     const params = new URLSearchParams(normalizedFilters).toString()
 
-    const data = await fetch(`/api${params ? `?${params}` : ''}`).then((response) =>
-      response.json(),
-    )
+    const data = await fetch(`/api${params ? `?${params}` : ''}`)
+      .then((response) => response.json())
+      .catch((err) => {
+        alert(err)
+      })
     store.data = data
   }
   const getDataDebounced = useCallback(debounce(getData, 500), [])
